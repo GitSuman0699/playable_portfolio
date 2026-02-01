@@ -1,0 +1,415 @@
+/* Project Modal Styles */
+.project-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.project-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+}
+
+.modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    position: relative;
+    background-color: var(--bg-card);
+    border-radius: 24px;
+    max-width: 1200px;
+    width: 90%;
+    max-height: 90vh;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1001;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    z-index: 10;
+}
+
+.modal-close:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    transform: scale(1.1);
+}
+
+.modal-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    max-height: 90vh;
+    overflow: hidden;
+}
+
+/* Left side - Image Gallery */
+.modal-gallery {
+    background-color: var(--bg-secondary);
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+}
+
+.gallery-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    overflow: hidden;
+}
+
+.gallery-main-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+.gallery-main-video {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 12px;
+    outline: none;
+}
+
+.gallery-main-pdf {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    min-height: 500px;
+}
+
+.gallery-main-placeholder {
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.gallery-main-placeholder a {
+    color: var(--primary);
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.gallery-thumbnails {
+    display: flex;
+    gap: 0.75rem;
+    padding: 1rem 2rem 2rem;
+    overflow-x: auto;
+    scrollbar-width: thin;
+}
+
+.gallery-thumbnail {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.gallery-thumbnail:hover {
+    transform: scale(1.05);
+}
+
+.gallery-thumbnail.active {
+    border-color: var(--primary);
+}
+
+.thumbnail-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumbnail-video,
+.thumbnail-pdf,
+.thumbnail-drive {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-card);
+    font-size: 2rem;
+}
+
+/* Right side - Project Details */
+.modal-details {
+    padding: 3rem;
+    overflow-y: auto;
+    max-height: 90vh;
+}
+
+.modal-details::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-details::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+.modal-details::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+.modal-details::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+.modal-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 1rem 0;
+}
+
+.modal-role {
+    margin-bottom: 1.5rem;
+}
+
+.role-label {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.role-value {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.modal-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+.modal-section {
+    margin-bottom: 2rem;
+}
+
+.modal-section h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 1rem 0;
+}
+
+.tech-stack-modal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tech-badge-modal {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.features-list li {
+    padding: 0.75rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.features-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.modal-actions {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.modal-actions h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 1rem 0;
+}
+
+.app-store-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn-app-store {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 2px solid transparent;
+}
+
+.btn-app-store:hover {
+    transform: translateY(-2px);
+}
+
+.btn-android {
+    background: linear-gradient(135deg, #3DDC84, #2DB872);
+    color: white;
+    box-shadow: 0 4px 15px rgba(61, 220, 132, 0.3);
+}
+
+.btn-android:hover {
+    box-shadow: 0 8px 25px rgba(61, 220, 132, 0.4);
+}
+
+.btn-ios {
+    background: linear-gradient(135deg, #000000, #1a1a1a);
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-ios:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.app-store-icon {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.app-store-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.125rem;
+}
+
+.app-store-label {
+    font-size: 0.625rem;
+    font-weight: 400;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.app-store-name {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.btn-view-app {
+    display: inline-block;
+    padding: 0.875rem 2rem;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-view-app:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+}
+
+/* Responsive Modal */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        max-height: 95vh;
+    }
+
+    .modal-body {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-gallery {
+        max-height: 40vh;
+    }
+
+    .modal-details {
+        padding: 2rem 1.5rem;
+        max-height: 55vh;
+    }
+
+    .modal-title {
+        font-size: 1.5rem;
+    }
+
+    .gallery-main {
+        padding: 1rem;
+    }
+
+    .gallery-thumbnails {
+        padding: 0.75rem 1rem 1rem;
+    }
+
+    .gallery-thumbnail {
+        width: 60px;
+        height: 60px;
+    }
+}
