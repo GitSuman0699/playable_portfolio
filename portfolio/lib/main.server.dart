@@ -27,6 +27,8 @@ void main() {
         css.import('css/portfolio.css'),
         // Import modal styles
         css.import('css/modal.css'),
+        // Import device mockup styles
+        css.import('css/device_mockup.css'),
       ],
       head: [
         // Include EmailJS custom JavaScript

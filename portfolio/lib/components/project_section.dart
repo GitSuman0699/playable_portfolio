@@ -13,6 +13,7 @@ class ProjectSection extends StatelessComponent {
       imagePath: 'images/aerolounge.png',
       techStack: ["Flutter", "Bloc", "Firebase", "Stripe Connect", "AWS Cognito", "REST API"],
       appUrl: '#',
+      embeddedAppPath: '/apps/Aero-Lounge/index.html',
       description:
           'A comprehensive aviation marketplace connecting aircraft owners, pilots, and aviation enthusiasts. Features include aircraft listings, booking management, secure payments, and real-time chat.',
       mediaItems: [
@@ -108,6 +109,7 @@ class ProjectSection extends StatelessComponent {
       techStack: [
         "Flutter",
         "Riverpod",
+        "Isar DB",
         "Gemini API",
       ],
 

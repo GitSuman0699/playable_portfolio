@@ -26,6 +26,7 @@ class ProjectModel {
   final List<MediaItem> mediaItems; // Gallery items
   final List<String> features; // Key features
   final String role; // Your role in the project
+  final String? embeddedAppPath; // Path to embedded Flutter web app (e.g., '/apps/Aero-Lounge/index.html')
 
   const ProjectModel({
     required this.title,
@@ -38,5 +39,6 @@ class ProjectModel {
     required this.mediaItems,
     required this.features,
     required this.role,
+    this.embeddedAppPath,
   });
 }

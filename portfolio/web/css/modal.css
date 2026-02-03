@@ -93,6 +93,84 @@
     max-height: 90vh;
 }
 
+/* Toggle Tabs */
+.gallery-tabs {
+    display: flex;
+    gap: 0;
+    padding: 1rem 1rem 0;
+    border-bottom: 1px solid var(--border-color, #333);
+}
+
+.gallery-tab {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--text-secondary, #888);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.gallery-tab:hover {
+    color: var(--text-primary, #fff);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.gallery-tab.active {
+    color: var(--primary, #667eea);
+    border-bottom-color: var(--primary, #667eea);
+}
+
+/* Gallery Views */
+.gallery-view {
+    display: none;
+    flex: 1;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.gallery-view.active {
+    display: flex;
+}
+
+/* Preview Not Available */
+.preview-not-available {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    text-align: center;
+    color: var(--text-secondary, #888);
+}
+
+.preview-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.6;
+}
+
+.preview-not-available h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary, #fff);
+    margin: 0 0 0.5rem 0;
+}
+
+.preview-not-available p {
+    font-size: 0.875rem;
+    margin: 0;
+    opacity: 0.8;
+}
+
 .gallery-main {
     flex: 1;
     display: flex;
@@ -411,5 +489,94 @@
     .gallery-thumbnail {
         width: 60px;
         height: 60px;
+    }
+}
+
+/* ========================================
+   Embedded App Section
+   For projects with playable Flutter demos
+   ======================================== */
+
+.embedded-app-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+    height: 100%;
+    background: var(--bg-secondary);
+}
+
+.embedded-app-title {
+    margin: 0 0 1rem 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.embedded-app-container {
+    flex: 1;
+    width: 100%;
+    position: relative;
+    background: #1a1a2e;
+    border-radius: 16px;
+    overflow: hidden;
+    min-height: 500px;
+}
+
+.embedded-app-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: #1a1a2e;
+    z-index: 2;
+}
+
+/* Loading indicator (behind iframe) */
+.embedded-app-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: white;
+    z-index: 1;
+}
+
+.embedded-app-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    border-top-color: var(--primary, #667eea);
+    border-radius: 50%;
+    animation: embedded-spin 1s linear infinite;
+}
+
+@keyframes embedded-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive embedded app */
+@media (max-width: 768px) {
+    .embedded-app-section {
+        padding: 1rem;
+        max-height: 50vh;
+    }
+
+    .embedded-app-container {
+        min-height: 400px;
+    }
+
+    .embedded-app-iframe {
+        min-height: 400px;
     }
 }

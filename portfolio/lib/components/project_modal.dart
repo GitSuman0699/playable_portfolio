@@ -44,27 +44,99 @@ class ProjectModal extends StatelessComponent {
 
           // Modal body
           div(classes: 'modal-body', [
-            // Left side - Image gallery
+            // Left side - Gallery with toggle tabs
             div(classes: 'modal-gallery', [
+              // Toggle tabs
+              div(classes: 'gallery-tabs', [
+                button(
+                  classes: 'gallery-tab active',
+                  id: '$modalId-tab-gallery',
+                  attributes: {
+                    'onclick':
+                        """
+                      document.getElementById('$modalId-tab-gallery').classList.add('active');
+                      document.getElementById('$modalId-tab-preview').classList.remove('active');
+                      document.getElementById('$modalId-view-gallery').classList.add('active');
+                      document.getElementById('$modalId-view-preview').classList.remove('active');
+                    """,
+                  },
+                  [text('Gallery')],
+                ),
+                button(
+                  classes: 'gallery-tab',
+                  id: '$modalId-tab-preview',
+                  attributes: {
+                    'onclick':
+                        """
+                      document.getElementById('$modalId-tab-preview').classList.add('active');
+                      document.getElementById('$modalId-tab-gallery').classList.remove('active');
+                      document.getElementById('$modalId-view-preview').classList.add('active');
+                      document.getElementById('$modalId-view-gallery').classList.remove('active');
+                    """,
+                  },
+                  [text('App Preview')],
+                ),
+              ]),
+
+              // Gallery View (default)
               div(
-                id: '$modalId-gallery-main',
-                classes: 'gallery-main',
+                id: '$modalId-view-gallery',
+                classes: 'gallery-view active',
                 [
-                  if (project.mediaItems.isNotEmpty)
-                    _buildMainMedia(project.mediaItems[0])
-                  else
-                    img(
-                      src: project.imagePath,
-                      alt: project.title,
-                      classes: 'gallery-main-image',
-                    ),
+                  div(
+                    id: '$modalId-gallery-main',
+                    classes: 'gallery-main',
+                    [
+                      if (project.mediaItems.isNotEmpty)
+                        _buildMainMedia(project.mediaItems[0])
+                      else
+                        img(
+                          src: project.imagePath,
+                          alt: project.title,
+                          classes: 'gallery-main-image',
+                        ),
+                    ],
+                  ),
+                  if (project.mediaItems.length > 1)
+                    div(classes: 'gallery-thumbnails', [
+                      for (var i = 0; i < project.mediaItems.length; i++)
+                        _buildThumbnail(project.mediaItems[i], i, modalId),
+                    ]),
                 ],
               ),
-              if (project.mediaItems.length > 1)
-                div(classes: 'gallery-thumbnails', [
-                  for (var i = 0; i < project.mediaItems.length; i++)
-                    _buildThumbnail(project.mediaItems[i], i, modalId),
-                ]),
+
+              // App Preview View
+              div(
+                id: '$modalId-view-preview',
+                classes: 'gallery-view',
+                [
+                  if (project.embeddedAppPath != null && project.embeddedAppPath!.isNotEmpty)
+                    div(classes: 'embedded-app-section', [
+                      div(classes: 'embedded-app-container', [
+                        // Loading indicator
+                        div(classes: 'embedded-app-loading', [
+                          div(classes: 'embedded-app-spinner', []),
+                          span([text('Loading app...')]),
+                        ]),
+                        iframe(
+                          src: project.embeddedAppPath!,
+                          classes: 'embedded-app-iframe',
+                          attributes: {
+                            'allow': 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope',
+                            'loading': 'lazy',
+                          },
+                          [],
+                        ),
+                      ]),
+                    ])
+                  else
+                    div(classes: 'preview-not-available', [
+                      div(classes: 'preview-icon', [text('🚧')]),
+                      h4([text('Preview Not Available')]),
+                      p([text('Interactive demo for this project is coming soon.')]),
+                    ]),
+                ],
+              ),
             ]),
 
             // Right side - Project details
