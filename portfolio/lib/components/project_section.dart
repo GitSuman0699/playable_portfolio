@@ -9,11 +9,43 @@ class ProjectSection extends StatelessComponent {
 
   static const projects = [
     ProjectModel(
+      title: 'The Global Love Wall',
+      imagePath: 'images/screen.png',
+      techStack: [
+        "Next.js 16",
+        "React 19",
+        "TypeScript",
+        "Tailwind CSS 4",
+        "Supabase",
+        "Framer Motion",
+        "Lucide React",
+      ],
+      appUrl: 'https://www.thegloballovewall.xyz',
+      embeddedAppPath: null,
+      description:
+          'Post a digital sticky note for your partner, a shoutout to a crush, a message to a friend, or a note to the universe—say it here.',
+      mediaItems: [
+        MediaItem(type: MediaType.image, url: 'images/screen.png'),
+      ],
+      features: [
+        "User Authentication (Login, Logout, Account Deletion)",
+        "Note Creation (Create a digital sticky note with message, author, partner name, location, background color, and optional image)",
+        "Note Editing (Update existing note content and image)",
+        "Note Deletion (Remove owned notes)",
+        "Infinite Scroll Feed (View all notes on the main wall)",
+        "Randomized Feed",
+        "Social Interaction (Like notes)",
+        "Bug Reporting System",
+        "Image Upload",
+      ],
+      role: 'Made it for fun',
+    ),
+    ProjectModel(
       title: 'Aero Lounge (Aviation Marketplace)',
       imagePath: 'images/aerolounge.png',
       techStack: ["Flutter", "Bloc", "Firebase", "Stripe Connect", "AWS Cognito", "REST API"],
       appUrl: '#',
-      embeddedAppPath: '/apps/Aero-Lounge/index.html',
+      embeddedAppPath: 'apps/Aero-Lounge/index.html',
       description:
           'A comprehensive aviation marketplace connecting aircraft owners, pilots, and aviation enthusiasts. Features include aircraft listings, booking management, secure payments, and real-time chat.',
       mediaItems: [

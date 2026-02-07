@@ -31,6 +31,8 @@ void main() {
         css.import('css/device_mockup.css'),
       ],
       head: [
+        // Favicon
+        link(rel: 'icon', type: 'image/png', href: 'favicon.png'),
         // Include EmailJS custom JavaScript
         script(src: 'js/email.js', attributes: {'defer': 'true'}),
         // Include client-side JavaScript for interactivity

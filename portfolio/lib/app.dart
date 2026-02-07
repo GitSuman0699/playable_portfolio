@@ -23,7 +23,14 @@ class AppState extends State<App> {
   bool isDarkMode = true;
   bool isMobileMenuOpen = false;
 
+  @override
+  void initState() {
+    super.initState();
+    print('📱 App Component Initialized');
+  }
+
   void toggleTheme() {
+    print('Theme Toggled. New state: ${!isDarkMode}');
     setState(() {
       isDarkMode = !isDarkMode;
     });
