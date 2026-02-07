@@ -31,6 +31,38 @@ try {
 }
 Pop-Location
 
+# 2.5 Copy Embedded Apps to Build Output
+Write-Host "Copying Embedded Apps to Build Output..."
+$destApps = "portfolio/build/jaspr/apps"
+if (-not (Test-Path $destApps)) {
+    New-Item -ItemType Directory -Force -Path $destApps | Out-Null
+}
+
+$apps = @("Aero-Lounge")
+foreach ($app in $apps) {
+    $appSource = "apps/$app/build/web"
+    $appDest = "$destApps/$app"
+    
+    if (Test-Path $appSource) {
+        Write-Host "Copying $app..."
+        if (-not (Test-Path $appDest)) {
+            New-Item -ItemType Directory -Force -Path $appDest | Out-Null
+        }
+        Copy-Item -Path "$appSource/*" -Destination $appDest -Recurse -Force
+        
+        # Patch index.html for relative base href
+        $indexHtml = "$appDest/index.html"
+        if (Test-Path $indexHtml) {
+            $content = Get-Content $indexHtml -Raw
+            $content = $content -replace '<base href="[^"]*">', '<base href="./">'
+            $content | Set-Content $indexHtml
+            Write-Host "Patched base href for $app"
+        }
+    } else {
+        Write-Warning "Source not found for $app at $appSource"
+    }
+}
+
 # 3. Deploy to Vercel
 Write-Host "Uploading to Vercel..."
 $buildDir = "portfolio/build/jaspr"

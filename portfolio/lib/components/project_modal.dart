@@ -13,6 +13,12 @@ class ProjectModal extends StatelessComponent {
     super.key,
   });
 
+  String _getAppUrlWithCacheBust(String url) {
+    if (url.isEmpty || url == '#') return url;
+    final timestamp = DateTime.now().millisecondsSinceEpoch;
+    return '$url?v=$timestamp';
+  }
+
   @override
   Component build(BuildContext context) {
     final closeScript =
@@ -33,21 +39,19 @@ class ProjectModal extends StatelessComponent {
 
         // Modal content
         div(classes: 'modal-content', [
-          // Close button
-          button(
-            classes: 'modal-close',
-            attributes: {
-              'onclick': closeScript,
-            },
-            [text('×')],
-          ),
-
           // Modal body
           div(classes: 'modal-body', [
             // Left side - Gallery with toggle tabs
             div(classes: 'modal-gallery', [
               // Toggle tabs
               div(classes: 'gallery-tabs', [
+                button(
+                  classes: 'modal-close-btn-inline',
+                  attributes: {
+                    'onclick': closeScript,
+                  },
+                  [text('×')],
+                ),
                 button(
                   classes: 'gallery-tab active',
                   id: '$modalId-tab-gallery',
@@ -119,11 +123,15 @@ class ProjectModal extends StatelessComponent {
                           span([text('Loading app...')]),
                         ]),
                         iframe(
-                          src: project.embeddedAppPath!,
+                          src: _getAppUrlWithCacheBust(project.embeddedAppPath!),
                           classes: 'embedded-app-iframe',
                           attributes: {
                             'allow': 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope',
                             'loading': 'lazy',
+                            // Initially transparent to show the spinner behind it
+                            'style': 'opacity: 0; transition: opacity 0.5s ease;',
+                            // Fade in when loaded
+                            'onload': "this.style.opacity = '1';",
                           },
                           [],
                         ),

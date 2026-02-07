@@ -53,29 +53,7 @@
     }
 }
 
-.modal-close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s ease, transform 0.2s ease;
-    z-index: 10;
-}
-
-.modal-close:hover {
-    background-color: rgba(0, 0, 0, 0.7);
-    transform: scale(1.1);
-}
+/* Old .modal-close removed */
 
 .modal-body {
     display: grid;
@@ -91,19 +69,49 @@
     display: flex;
     flex-direction: column;
     max-height: 90vh;
+    overflow-y: auto;
+    /* Enable scroll on the parent */
+    overflow-x: hidden;
 }
 
 /* Toggle Tabs */
 .gallery-tabs {
     display: flex;
     gap: 0;
-    padding: 1rem 1rem 0;
+    padding: 0;
     border-bottom: 1px solid var(--border-color, #333);
+    align-items: stretch;
+    /* Ensure equal height */
+    flex-shrink: 0;
+    /* Prevent tabs from shrinking */
+    position: sticky;
+    /* Sticky tabs? No, user wants them to scroll */
+    top: 0;
+    background-color: var(--bg-secondary);
+    z-index: 10;
+}
+
+.modal-close-btn-inline {
+    width: 48px;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+    border: none;
+    border-right: 1px solid var(--border-color, #333);
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.modal-close-btn-inline:hover {
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .gallery-tab {
     flex: 1;
-    padding: 0.75rem 1rem;
+    padding: 1rem;
     background: transparent;
     border: none;
     border-bottom: 3px solid transparent;
@@ -133,7 +141,8 @@
     display: none;
     flex: 1;
     flex-direction: column;
-    overflow: hidden;
+    /* Overflow handled by parent */
+    min-height: min-content;
 }
 
 .gallery-view.active {
@@ -457,21 +466,51 @@
 /* Responsive Modal */
 @media (max-width: 768px) {
     .modal-content {
-        width: 95%;
-        max-height: 95vh;
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
+        border-radius: 0;
+    }
+
+    .modal-gallery-header {
+        display: none;
+        /* Hide top header, use inline close button */
     }
 
     .modal-body {
         grid-template-columns: 1fr;
+        display: block;
+        /* Stack vertically */
+        overflow-y: auto;
+        /* Single scrollable area */
+        height: 100%;
+        max-height: none;
+        -webkit-overflow-scrolling: touch;
     }
 
     .modal-gallery {
-        max-height: 40vh;
+        max-height: none;
+        height: auto;
+        overflow: visible;
+        /* Let content expand */
+        flex: none;
     }
 
     .modal-details {
         padding: 2rem 1.5rem;
-        max-height: 55vh;
+        max-height: none;
+        height: auto;
+        overflow: visible;
+        /* Let content expand */
+    }
+
+    /* Tabs sticky at top of mobile view */
+    .gallery-tabs {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background-color: var(--bg-secondary);
+        border-bottom: 2px solid var(--border-color);
     }
 
     .modal-title {
@@ -480,6 +519,7 @@
 
     .gallery-main {
         padding: 1rem;
+        min-height: 300px;
     }
 
     .gallery-thumbnails {
@@ -568,15 +608,19 @@
 /* Responsive embedded app */
 @media (max-width: 768px) {
     .embedded-app-section {
-        padding: 1rem;
-        max-height: 50vh;
+        padding: 0;
+        height: 100%;
+        max-height: none;
     }
 
     .embedded-app-container {
-        min-height: 400px;
+        height: 100%;
+        min-height: 70vh;
+        border-radius: 0;
     }
 
     .embedded-app-iframe {
-        min-height: 400px;
+        height: 100%;
+        min-height: 70vh;
     }
 }
